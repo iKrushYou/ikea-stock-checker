@@ -4,6 +4,7 @@
     "ikea-availability-checker": "^0.6.9",
     "minimist": "^1.2.5",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "url": "^0.11.0"
   }
 }

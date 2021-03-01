@@ -1,6 +1,7 @@
 const checker = require('ikea-availability-checker');
 const axios = require('axios');
 const moment = require('moment');
+var moment = require('moment-timezone');
 const URLSearchParams = require('url').URLSearchParams;
 
 const args = require('minimist')(process.argv.slice(2));
@@ -54,7 +55,7 @@ const blockSectionFields = (fieldTexts) => ({
         console.log('starting')
 
         const blocks = []
-        blocks.push(blockSectionText(`*${moment().format('LLL')}*`))
+        blocks.push(blockSectionText(`*${moment().tz("America/New_York").format('LLL')}*`))
         blocks.push(blockSectionText(`*Product:*\n${productId}`))
 
         for (const storeId of storeIds) {
@@ -65,7 +66,7 @@ const blockSectionFields = (fieldTexts) => ({
             const result = await checker.availability(store.buCode, productId);
             console.log('RESULT', result);
             blocks.push(blockSectionText(`*Stock: *\n${result.stock}`))
-            blocks.push(blockSectionText(`*Forecast: *\n${result.forecast.map(forecast => `\t${moment(forecast.date).format('LL')} - ${forecast.stock}\n`).join('')}`))
+            blocks.push(blockSectionText(`*Forecast: *\n${result.forecast.map(forecast => `\t${moment(forecast.date).tz("America/New_York").format('LL')} - ${forecast.stock}\n`).join('')}`))
         }
 
         sendSlackMessage(blocks).then()
