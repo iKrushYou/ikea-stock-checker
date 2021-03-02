@@ -1,6 +1,5 @@
 const checker = require('ikea-availability-checker');
 const axios = require('axios');
-const moment = require('moment');
 var moment = require('moment-timezone');
 const URLSearchParams = require('url').URLSearchParams;
 
